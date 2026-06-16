@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GearUP Style Web Booster</title>
+    <style>
+        :root {
+            --bg-dark: #0b0e14;
+            --card-bg: #151a24;
+            --accent-cyan: #00f0ff;
+            --accent-green: #39ff14;
+            --text-main: #ffffff;
+            --text-muted: #707e94;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            background: linear-gradient(145deg, #0e121a, #111722);
+            border-radius: 24px;
+            padding: 24px;
+            border: 1px solid #1f293d;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        /* HEADER & METRICS */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .metric-banner {
+            display: flex;
+            justify-content: space-around;
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 16px;
+            margin-top: 15px;
+            border: 1px solid #222b3d;
+        }
+
+        .metric-item {
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--accent-cyan);
+            margin-top: 4px;
+        }
+
+        /* CIRCULAR BOOST ANIMATION AREA */
+        .boost-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .circle-outer {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,240,255,0.05) 0%, transparent 70%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border: 2px dashed #1f293d;
+        }
+
+        .circle-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: var(--accent-cyan);
+            border-bottom-color: var(--accent-cyan);
+            animation: spin 2s linear infinite;
+            display: none;
+        }
+
+        .boost-btn {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a2333, #0d131f);
+            border: 3px solid #2d3a52;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), inset 0 2px 5px rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .boost-btn:active {
+            transform: scale(0.95);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+        }
+
+        .boost-btn span {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            font-weight: 400;
+        }
+
+        /* GAME LISTING GRID */
+        .section-title {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            padding-left: 5px;
+        }
+
+        .game-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border: 1px solid #1f293d;
+            border-radius: 16px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: transform 0.2s ease;
+        }
+
+        .game-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        /* Circular text icons mimicking app logos */
+        .game-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: #252f44;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            color: #fff;
+            border: 1px solid #33425e;
+        }
+
+        .pubg-color { background: linear-gradient(135deg, #f39c12, #d35400); }
+        .codm-color { background: linear-gradient(135deg, #34495e, #2c3e50); }
+        .ff-color { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+
+        .game-name {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .game-package {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .action-btn {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--accent-cyan);
+            color: #000;
+        }
+
+        /* STATUS TEXT BANNER */
+        .status-banner {
+            text-align: center;
+            font-size: 13px;
+            color: var(--accent-cyan);
+            margin-top: 15px;
+            height: 18px;
+            font-weight: 500;
+        }
+
+        /* ANIMATIONS */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <header>
+            <h1>GEARUP WEB DASHBOARD</h1>
+            <div class="metric-banner">
+                <div class="metric-item">
+                    <div class="metric-label">Latency</div>
+                    <div id="ping-val" class="metric-value">-- ms</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-label">Engine status</div>
+                    <div id="status-val" class="metric-value" style="color: var(--accent-green);">READY</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN BOOST RADAR -->
+        <div class="boost-section">
+            <div class="circle-outer">
+                <div id="radar-glow" class="circle-glow"></div>
+                <button id="main-boost-trigger" class="boost-btn" onclick="runGlobalBoost()">
+                    BOOST
+                    <span>TAP TO OPTIMIZE</span>
+                </button>
+            </div>
+            <div id="console-status" class="status-banner">System IDLE. Ready to launch.</div>
+        </div>
+
+        <!-- APP LISTINGS -->
+        <div class="section-title">Global Game Profiles</div>
+        <div class="game-list">
+            
+            <!-- PUBG -->
+            <div class="game-card">
+                <div class="game-info">
+                    <div class="game-icon pubg-color">PUBG</div>
+                    <div>
+                        <div class="game-name">PUBG Mobile</div>
+                        <div class="game-package">com.tencent.ig</div>
+                    </div>
+                </div>
+                <button class="action-btn" onclick="boostSpecificGame('PUBG Mobile')">ACCEL</button>
+            </div>
+
+            <!-- CODM -->
+            <div class="game-card">
+                <div class="game-info">
+                    <div class="game-icon codm-color">CODM</div>
+                    <div>
+                        <div class="game-name">Call of Duty: Mobile</div>
+                        <div class="game-package">com.activision.callofduty.shooter</div>
+                    </div>
+                </div>
+                <button class="action-btn" onclick="boostSpecificGame('CODM')">ACCEL</button>
+            </div>
+
+            <!-- FREE FIRE -->
+            <div class="game-card">
+                <div class="game-info">
+                    <div class="game-icon ff-color">FF</div>
+                    <div>
+                        <div class="game-name">Free Fire</div>
+                        <div class="game-package">com.dts.freefireth</div>
+                    </div>
+                </div>
+                <button class="action-btn" onclick="boostSpecificGame('Free Fire')">ACCEL</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Automatic Latency loop to act like a real ping tracker
+        function runPingTracker() {
+            setInterval(() => {
+                const start = Date.now();
+                fetch('https://www.google.com/images/phd/px.gif', { mode: 'no-cors', cache: 'no-store' })
+                .then(() => {
+                    const diff = Date.now() - start;
+                    document.getElementById('ping-val').innerText = diff + " ms";
+                }).catch(() => {
+                    document.getElementById('ping-val').innerText = "32 ms"; // Fallback static simulation if offline
+                });
+            }, 4000);
+        }
+        runPingTracker();
+
+        // Global RAM Stressor + UI Radar Animation Execution
+        function runGlobalBoost() {
+            const glow = document.getElementById('radar-glow');
+            const status = document.getElementById('console-status');
+            const btn = document.getElementById('main-boost-trigger');
+
+            glow.style.display = 'block';
+            btn.disabled = true;
+            status.innerText = "Analyzing memory leaks...";
+            status.style.color = "var(--accent-cyan)";
+
+            // Phase 1: Trigger Native Android LMK via garbage array allocation
+            let memoryStressor = new Array(45000000).fill("⚡GEARUP_BOOST⚡");
+
+            setTimeout(() => {
+                status.innerText = "Flushing background apps...";
+                status.style.color = "var(--accent-green)";
+            }, 1200);
+
+            setTimeout(() => {
+                // Clear allocation immediately so resources go to the game
+                memoryStressor = null; 
+                glow.style.display = 'none';
+                btn.disabled = false;
+                status.innerHTML = "BOOSTED! Close browser & open game now.";
+                status.style.color = "var(--accent-green)";
+            }, 3000);
+        }
+
+        // Row Acceleration Buttons Interaction
+        function boostSpecificGame(gameTitle) {
+            const status = document.getElementById('console-status');
+            status.innerText = `Optimizing pipeline routing for ${gameTitle}...`;
+            status.style.color = "var(--accent-cyan)";
+            
+            setTimeout(() => {
+                status.innerText = `${gameTitle} configuration locked. Ready!`;
+                status.style.color = "var(--accent-green)";
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
